@@ -1,0 +1,11 @@
+<div class="max-w-sm rounded overflow-hidden shadow-lg bg-white">
+  <div *ngIf="!course.imageUrl; else elseTemplate">
+    <img class="w-full" src="assets/free-images.jpg" alt="Card Image" />
+  </div>
+  <ng-template #elseTemplate>
+    <img class="w-full" [src]="course.imageUrl" alt="Card Image" />
+  </ng-template>
+  <div class="px-6 py-4">
+    <div class="font-bold text-xl mb-2">{{ course.category }}</div>
+  </div>
+</div>
