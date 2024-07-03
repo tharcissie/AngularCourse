@@ -2,6 +2,13 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.4.
 
+## In this Application
+   Sending data from from parent component to child using @Input
+   Using routerLink in the HTML template link to navigate to another page
+   Getting URL parm using ActivatedRoute service
+   Using Router service to naviagate to another page
+   Template *ngIf else condition
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
