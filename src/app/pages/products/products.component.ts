@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../../services/products.service';
 import { PRODUCT } from '../../model/product';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-products',
@@ -17,7 +18,14 @@ export class ProductsComponent implements OnInit {
     description: '',
     image: '',
   };
-  constructor(private productsService: ProductsService) {}
+  testProduct: { price: number } = {
+    price: 0,
+  };
+
+  constructor(
+    private productsService: ProductsService,
+    private router: Router
+  ) {}
   ngOnInit(): void {
     this.productsService.fetchProducts();
     this.products = this.productsService.getProducts();
@@ -25,6 +33,7 @@ export class ProductsComponent implements OnInit {
 
   addProduct(): void {
     this.productsService.addProduct(this.product);
+    this.products = [...this.products, this.product];
     this.product = {
       id: 0,
       title: '',
@@ -37,5 +46,9 @@ export class ProductsComponent implements OnInit {
 
   deleteProduct(id: number) {
     this.productsService.deleteProduct(id);
+    this.products = this.products.filter((p) => p.id !== id);
+  }
+  viewDetails(id: number) {
+    this.router.navigate(['/products', id]);
   }
 }

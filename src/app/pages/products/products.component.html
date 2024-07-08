@@ -3,6 +3,7 @@
     <div
       *ngFor="let product of products"
       class="bg-white p-4 shadow-md rounded-lg"
+      (click)="viewDetails(product.id)"
     >
       <div class="flex justify-between items-center mb-4">
         <h2 class="text-xl font-bold">{{ product.title }}</h2>
