@@ -7,7 +7,6 @@ import { PRODUCT } from '../model/product';
 })
 export class ProductsService {
   private products: PRODUCT[] = [];
-
   private URL = 'https://fakestoreapi.com';
 
   constructor(private http: HttpClient) {}
@@ -23,11 +22,18 @@ export class ProductsService {
   }
 
   addProduct(product: PRODUCT): void {
-    this.http
-      .post<PRODUCT>(`${this.URL}/products`, product)
-      .subscribe((data) => {
-        this.products.push(data);
-      });
+    this.http.post<PRODUCT>(`${this.URL}/products`, product).subscribe((data) => {
+      this.products.push(data);
+    });
+  }
+
+  updateProduct(product: PRODUCT): void {
+    this.http.put<PRODUCT>(`${this.URL}/products/${product.id}`, product).subscribe((data) => {
+      const index = this.products.findIndex((p) => p.id === product.id);
+      if (index !== -1) {
+        this.products[index] = data;
+      }
+    });
   }
 
   deleteProduct(id: number): void {
