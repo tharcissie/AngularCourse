@@ -5,7 +5,7 @@ import { PRODUCT } from '../../model/product';
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
-  styleUrl: './products.component.css',
+  styleUrls: ['./products.component.css'],
 })
 export class ProductsComponent implements OnInit {
   products: PRODUCT[] = [];
@@ -25,8 +25,18 @@ export class ProductsComponent implements OnInit {
     description: '',
     image: '',
   };
-  showAddForm: boolean = false;
-  showModal: boolean = false;
+  showAddForm = false;
+  showModal = false;
+  showUpdateModal = false;
+  updateProductData: PRODUCT = {
+    id: 0,
+    title: '',
+    price: '',
+    category: '',
+    description: '',
+    image: '',
+  };
+
   constructor(private productsService: ProductsService) {}
   ngOnInit(): void {
     this.productsService.fetchProducts();
@@ -49,17 +59,39 @@ export class ProductsComponent implements OnInit {
     this.productsService.deleteProduct(id);
   }
 
-  toggleModal() {
-    this.showModal = !this.showModal;
-  }
-
   toggleAdd() {
     this.showAddForm = !this.showAddForm;
-    return this.showAddForm;
+  }
+
+  toggleModal() {
+    this.showModal = !this.showModal;
   }
 
   viewProduct(id: number) {
     this.singleProduct = this.productsService.getSingleProduct(id);
     this.toggleModal();
+  }
+
+  openUpdateModal(product: PRODUCT) {
+    this.updateProductData = { ...product };
+    this.showUpdateModal = true;
+  }
+
+  closeUpdateModal() {
+    this.showUpdateModal = false;
+  }
+
+  updateProduct() {
+    this.productsService.updateProduct(this.updateProductData);
+    this.closeUpdateModal();
+    // .subscribe((updatedProduct) => {
+    //   const index = this.products.findIndex(
+    //     (product) => product.id === updatedProduct.id
+    //   );
+    //   if (index !== -1) {
+    //     this.products[index] = updatedProduct;
+    //   }
+    //   this.closeUpdateModal();
+    // });
   }
 }
