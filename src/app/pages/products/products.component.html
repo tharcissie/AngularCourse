@@ -2,7 +2,8 @@
   <div class="grid grid-cols-2 gap-4 m-5">
     <div
       *ngFor="let product of products"
-      class="bg-white p-4 shadow-md rounded-lg"
+      class="bg-white p-4 shadow-md rounded-lg cursor-pointer"
+      (click)="goToProductDetails(product.id)"
     >
       <img [src]="product.image" alt="{{ product.title }}" class="w-full h-48 object-cover rounded-lg mb-4" />
       <div class="flex justify-between items-center mb-4">
@@ -10,13 +11,13 @@
       </div>
       <p>{{ product.description }}</p>
       <button
-        (click)="editProduct(product)"
+        (click)="editProduct(product); $event.stopPropagation()"
         class="bg-yellow-500 hover:bg-yellow-700 text-white py-2 px-4 rounded mt-5 mr-2"
       >
         Edit
       </button>
       <button
-        (click)="deleteProduct(product.id)"
+        (click)="deleteProduct(product.id); $event.stopPropagation()"
         class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded mt-5"
       >
         Delete

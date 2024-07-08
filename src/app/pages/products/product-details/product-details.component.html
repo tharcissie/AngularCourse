@@ -1,0 +1,10 @@
+<div *ngIf="product" class="p-6 bg-white rounded-lg shadow-lg">
+    <img [src]="product.image" alt="{{ product.title }}" class="w-full h-64 object-cover rounded-lg mb-4" />
+    <h2 class="text-2xl font-bold mb-4">{{ product.title }}</h2>
+    <p class="text-gray-700 mb-4">{{ product.description }}</p>
+    <p class="text-gray-900 font-semibold">{{ product.price | currency }}</p>
+  </div>
+  <div *ngIf="!product" class="p-6 bg-white rounded-lg shadow-lg">
+    <p>Product not found.</p>
+  </div>
+  
