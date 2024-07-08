@@ -21,7 +21,7 @@ export class ProductsComponent implements OnInit {
   testProduct: { price: number } = {
     price: 0,
   };
-
+  onEditMode: boolean = false;
   constructor(
     private productsService: ProductsService,
     private router: Router
@@ -44,11 +44,35 @@ export class ProductsComponent implements OnInit {
     };
   }
 
-  deleteProduct(id: number) {
+  deleteProduct(id: number): void {
     this.productsService.deleteProduct(id);
     this.products = this.products.filter((p) => p.id !== id);
   }
   viewDetails(id: number) {
     this.router.navigate(['/products', id]);
+  }
+  editProduct(e: MouseEvent, id: number): void {
+    e.stopPropagation();
+    this.onEditMode = true;
+    const prod: PRODUCT[] = this.products.filter((p) => p.id == id);
+    prod[0].id = prod.length + 1;
+    this.product = prod[0];
+  }
+  confirmEdit(): void {
+    this.productsService.editProduct(this.product);
+
+    this.products = [
+      ...this.products.filter((p) => p.id !== this.product.id),
+      this.product,
+    ];
+    this.onEditMode = false;
+    this.product = {
+      id: 0,
+      title: '',
+      price: '',
+      category: '',
+      description: '',
+      image: '',
+    };
   }
 }

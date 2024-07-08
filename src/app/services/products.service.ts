@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PRODUCT } from '../model/product';
-
+type PartialProduct = Partial<PRODUCT>;
 @Injectable({
   providedIn: 'root',
 })
@@ -34,5 +34,15 @@ export class ProductsService {
     this.http.delete<PRODUCT>(`${this.URL}/products/${id}`).subscribe(() => {
       this.products = this.products.filter((product) => product.id !== id);
     });
+  }
+  editProduct(updatedProduct: any): void {
+    this.http
+      .put<PRODUCT>(`${this.URL}/products/${updatedProduct.id}`, updatedProduct)
+      .subscribe(() => {
+        this.products = [
+          ...this.products.filter((p) => p.id !== updatedProduct.id),
+          updatedProduct,
+        ];
+      });
   }
 }
