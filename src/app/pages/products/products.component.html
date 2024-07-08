@@ -2,93 +2,92 @@
   <div class="grid grid-cols-2 gap-4 m-5">
     <div
       *ngFor="let product of products"
-      class="bg-white p-4 shadow-md rounded-lg"
-    >
+      class="bg-white p-4 shadow-md rounded-lg">
       <div class="flex justify-between items-center mb-4">
         <h2 class="text-xl font-bold">{{ product.title }}</h2>
       </div>
       <p>{{ product.description }}</p>
       <button
         (click)="deleteProduct(product.id)"
-        class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded mt-5"
-      >
+        class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded mt-5">
         Delete
+      </button>
+      <button
+        (click)="editProduct(product)"
+        class="bg-green-500 hover:bg-green-700 text-white py-2 px-4 mx-3 rounded mt-5">
+        Edit
       </button>
     </div>
   </div>
   <div>
     <div class="bg-white p-6 rounded-lg shadow-lg">
-      <h2 class="text-xl font-bold mb-4">Add Product</h2>
+      <h2 class="text-xl font-bold mb-4">{{ isEditing ? 'Edit' : 'Add' }}
+        Product</h2>
       <form>
         <div class="mb-4">
-          <label for="title" class="block text-sm font-medium text-gray-700"
-            >Title</label
-          >
+          <label for="title"
+            class="block text-sm font-medium text-gray-700">Title</label>
           <input
             type="text"
             id="title"
             name="title"
             [(ngModel)]="product.title"
-            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-          />
+            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" />
         </div>
         <div class="mb-4">
-          <label for="price" class="block text-sm font-medium text-gray-700"
-            >Price</label
-          >
+          <label for="price"
+            class="block text-sm font-medium text-gray-700">Price</label>
           <input
             type="number"
             id="price"
             name="price"
             [(ngModel)]="product.price"
-            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-          />
+            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" />
         </div>
         <div class="mb-4">
-          <label for="category" class="block text-sm font-medium text-gray-700"
-            >Category</label
-          >
+          <label for="category"
+            class="block text-sm font-medium text-gray-700">Category</label>
           <input
             type="text"
             id="category"
             name="category"
             [(ngModel)]="product.category"
-            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-          />
+            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" />
         </div>
         <div class="mb-4">
           <label
             for="description"
-            class="block text-sm font-medium text-gray-700"
-            >Description</label
-          >
+            class="block text-sm font-medium text-gray-700">Description</label>
           <textarea
             id="description"
             name="description"
             rows="3"
             [(ngModel)]="product.description"
-            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-          ></textarea>
+            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"></textarea>
         </div>
         <div class="mb-4">
-          <label for="image" class="block text-sm font-medium text-gray-700"
-            >Image URL</label
-          >
+          <label for="image"
+            class="block text-sm font-medium text-gray-700">Image URL</label>
           <input
             type="url"
             id="image"
             name="image"
             [(ngModel)]="product.image"
-            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-          />
+            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" />
         </div>
         <div class="flex justify-end">
           <button
-            (click)="addProduct()"
+            (click)="isEditing ? updateProduct() : addProduct()"
             type="submit"
-            class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mr-2"
-          >
-            Add
+            class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mr-2">
+            {{ isEditing ? 'Update' : 'Add' }}
+          </button>
+          <button
+            *ngIf="isEditing"
+            (click)="cancelEdit()"
+            type="button"
+            class="bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded">
+            Cancel
           </button>
         </div>
       </form>

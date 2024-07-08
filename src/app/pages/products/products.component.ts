@@ -34,8 +34,32 @@ export class ProductsComponent implements OnInit {
       image: '',
     };
   }
+  isEditing: boolean = false;
 
   deleteProduct(id: number) {
     this.productsService.deleteProduct(id);
+  }
+  editProduct(product: PRODUCT) {
+    this.product = { ...product };
+    this.isEditing = true;
+  }
+  updateProduct() {
+    this.productsService.editProduct(this.product.id, this.product);
+    this.resetForm();
+  }
+
+  cancelEdit() {
+    this.resetForm();
+  }
+  resetForm() {
+    this.product = {
+      id: 0,
+      title: '',
+      price: '',
+      category: '',
+      description: '',
+      image: '',
+    };
+    this.isEditing = false;
   }
 }
