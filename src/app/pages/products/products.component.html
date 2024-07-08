@@ -3,10 +3,14 @@
     <div
       *ngFor="let product of products"
       class="bg-white p-4 shadow-md rounded-lg">
-      <div class="flex justify-between items-center mb-4">
-        <h2 class="text-xl font-bold">{{ product.title }}</h2>
-      </div>
-      <p>{{ product.description }}</p>
+      <a [routerLink]="['/products', product.id]">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-xl font-bold">
+            {{ product.title }}
+          </h2>
+        </div>
+        <p>{{ product.description }}</p>
+      </a>
       <button
         (click)="deleteProduct(product.id)"
         class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded mt-5">

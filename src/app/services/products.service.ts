@@ -46,4 +46,7 @@ export class ProductsService {
         }
       });
   }
+  getProductById(id: number): PRODUCT | undefined {
+    return this.products.find((product) => product.id === id);
+  }
 }
