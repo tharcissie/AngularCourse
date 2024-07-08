@@ -84,14 +84,5 @@ export class ProductsComponent implements OnInit {
   updateProduct() {
     this.productsService.updateProduct(this.updateProductData);
     this.closeUpdateModal();
-    // .subscribe((updatedProduct) => {
-    //   const index = this.products.findIndex(
-    //     (product) => product.id === updatedProduct.id
-    //   );
-    //   if (index !== -1) {
-    //     this.products[index] = updatedProduct;
-    //   }
-    //   this.closeUpdateModal();
-    // });
   }
 }
