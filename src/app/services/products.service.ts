@@ -35,4 +35,17 @@ export class ProductsService {
       this.products = this.products.filter((product) => product.id !== id);
     });
   }
+
+  updateProduct(product: PRODUCT): void {
+    this.http
+      .put<PRODUCT>(`${this.URL}/products/${product.id}`, product)
+      .subscribe((updatedProduct) => {
+        const index = this.products.findIndex(
+          (p) => p.id === updatedProduct.id
+        );
+        if (index !== -1) {
+          this.products[index] = updatedProduct;
+        }
+      });
+  }
 }

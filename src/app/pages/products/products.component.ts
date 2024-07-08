@@ -5,7 +5,7 @@ import { PRODUCT } from '../../model/product';
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
-  styleUrl: './products.component.css',
+  styleUrls: ['./products.component.css'],
 })
 export class ProductsComponent implements OnInit {
   products: PRODUCT[] = [];
@@ -17,14 +17,45 @@ export class ProductsComponent implements OnInit {
     description: '',
     image: '',
   };
+  isEditMode = false;
+
   constructor(private productsService: ProductsService) {}
+
   ngOnInit(): void {
     this.productsService.fetchProducts();
     this.products = this.productsService.getProducts();
   }
 
-  addProduct(): void {
-    this.productsService.addProduct(this.product);
+  isModalOpen = false;
+
+  addOrUpdateProduct(): void {
+    if (this.isEditMode) {
+      this.productsService.updateProduct(this.product);
+    } else {
+      this.productsService.addProduct(this.product);
+    }
+    this.resetProduct();
+    this.closeModal();
+  }
+
+  deleteProduct(id: number): void {
+    this.productsService.deleteProduct(id);
+  }
+
+  openModal(editMode: boolean = false, product?: PRODUCT): void {
+    this.isModalOpen = true;
+    this.isEditMode = editMode;
+    if (editMode && product) {
+      this.product = { ...product };
+    }
+  }
+
+  closeModal(): void {
+    this.isModalOpen = false;
+    this.resetProduct();
+  }
+
+  resetProduct(): void {
     this.product = {
       id: 0,
       title: '',
@@ -33,9 +64,5 @@ export class ProductsComponent implements OnInit {
       description: '',
       image: '',
     };
-  }
-
-  deleteProduct(id: number) {
-    this.productsService.deleteProduct(id);
   }
 }
