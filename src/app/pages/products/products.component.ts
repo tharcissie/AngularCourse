@@ -17,6 +17,16 @@ export class ProductsComponent implements OnInit {
     description: '',
     image: '',
   };
+  singleProduct: PRODUCT | undefined = {
+    id: 0,
+    title: '',
+    price: '',
+    category: '',
+    description: '',
+    image: '',
+  };
+  showAddForm: boolean = false;
+  showModal: boolean = false;
   constructor(private productsService: ProductsService) {}
   ngOnInit(): void {
     this.productsService.fetchProducts();
@@ -37,5 +47,19 @@ export class ProductsComponent implements OnInit {
 
   deleteProduct(id: number) {
     this.productsService.deleteProduct(id);
+  }
+
+  toggleModal() {
+    this.showModal = !this.showModal;
+  }
+
+  toggleAdd() {
+    this.showAddForm = !this.showAddForm;
+    return this.showAddForm;
+  }
+
+  viewProduct(id: number) {
+    this.singleProduct = this.productsService.getSingleProduct(id);
+    this.toggleModal();
   }
 }

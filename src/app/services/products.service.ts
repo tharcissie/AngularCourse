@@ -22,6 +22,10 @@ export class ProductsService {
     return this.products;
   }
 
+  getSingleProduct(id: number) {
+    return this.products.find((product) => product.id === id);
+  }
+
   addProduct(product: PRODUCT): void {
     this.http
       .post<PRODUCT>(`${this.URL}/products`, product)
