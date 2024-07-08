@@ -10,6 +10,9 @@ import { CoursesListComponent } from './pages/courses/courses-list/courses-list.
 import { CourseDetailsComponent } from './pages/courses/course-details/course-details.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { CardComponent } from './components/card/card.component';
+import { ProductsComponent } from './pages/products/products.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,10 +24,13 @@ import { CardComponent } from './components/card/card.component';
     CourseDetailsComponent,
     NavbarComponent,
     CardComponent,
+    ProductsComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
     provideClientHydration()
