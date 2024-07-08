@@ -17,6 +17,8 @@ export class ProductsComponent implements OnInit {
     description: '',
     image: '',
   };
+  isModalOpen = false;
+  isViewModalOpen = false;
   isEditMode = false;
 
   constructor(private productsService: ProductsService) {}
@@ -25,8 +27,6 @@ export class ProductsComponent implements OnInit {
     this.productsService.fetchProducts();
     this.products = this.productsService.getProducts();
   }
-
-  isModalOpen = false;
 
   addOrUpdateProduct(): void {
     if (this.isEditMode) {
@@ -50,8 +50,18 @@ export class ProductsComponent implements OnInit {
     }
   }
 
+  openViewModal(product: PRODUCT): void {
+    this.isViewModalOpen = true;
+    this.product = { ...product };
+  }
+
   closeModal(): void {
     this.isModalOpen = false;
+    this.resetProduct();
+  }
+
+  closeViewModal(): void {
+    this.isViewModalOpen = false;
     this.resetProduct();
   }
 
