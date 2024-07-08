@@ -1,0 +1,19 @@
+@if (product) {
+<div class="grid grid-cols-2">
+  <div class="grid grid-cols-2 gap-4 m-5">
+    <div class="bg-white p-4 shadow-md rounded-lg">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-bold">{{ product.title }}</h2>
+      </div>
+      <p class="mb-10">{{ product.description }}</p>
+      <a
+        routerLink="/products"
+        class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded mt-16"
+      >
+        Back
+      </a>
+    </div>
+  </div>
+</div>
+
+}

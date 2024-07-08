@@ -43,4 +43,9 @@ export class ProductsService {
         const index = this.products.findIndex((p) => p.id === data.id);
       });
   }
+
+  getProductById(id: number): PRODUCT | undefined {
+    return this.products.find((product) => product.id === id);
+  }
+  
 }

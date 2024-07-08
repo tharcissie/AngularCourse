@@ -13,6 +13,7 @@ import { CardComponent } from './components/card/card.component';
 import { ProductsComponent } from './pages/products/products.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { ProductsDetailsComponent } from './pages/products/products-details/products-details.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { FormsModule } from '@angular/forms';
     NavbarComponent,
     CardComponent,
     ProductsComponent,
+    ProductsDetailsComponent,
   ],
   imports: [
     BrowserModule,
