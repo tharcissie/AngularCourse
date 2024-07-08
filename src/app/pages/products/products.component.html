@@ -14,11 +14,19 @@
       >
         Delete
       </button>
+      <button
+        (click)="editProduct(product)"
+        class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded mt-5 ml-10"
+      >
+        Edit
+      </button>
     </div>
   </div>
   <div>
     <div class="bg-white p-6 rounded-lg shadow-lg">
-      <h2 class="text-xl font-bold mb-4">Add Product</h2>
+      <h2 class="text-xl font-bold mb-4">
+        {{ isEditing ? "Edit" : "Add" }} Product
+      </h2>
       <form>
         <div class="mb-4">
           <label for="title" class="block text-sm font-medium text-gray-700"
@@ -88,7 +96,7 @@
             type="submit"
             class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mr-2"
           >
-            Add
+            {{ isEditing ? "Update" : "Add" }} Product
           </button>
         </div>
       </form>

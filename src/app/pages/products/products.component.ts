@@ -17,6 +17,8 @@ export class ProductsComponent implements OnInit {
     description: '',
     image: '',
   };
+  isEditing: boolean = false;
+
   constructor(private productsService: ProductsService) {}
   ngOnInit(): void {
     this.productsService.fetchProducts();
@@ -24,7 +26,26 @@ export class ProductsComponent implements OnInit {
   }
 
   addProduct(): void {
-    this.productsService.addProduct(this.product);
+    if (this.isEditing) {
+      this.productsService.updateProduct(this.product);
+      this.isEditing = false;
+    } else {
+      this.productsService.addProduct(this.product);
+    }
+
+    this.resetForm();
+  }
+
+  editProduct(product: PRODUCT): void {
+    this.product = { ...product };
+    this.isEditing = true;
+  }
+
+  deleteProduct(id: number): void {
+    this.productsService.deleteProduct(id);
+  }
+
+  resetForm(): void {
     this.product = {
       id: 0,
       title: '',
@@ -33,9 +54,5 @@ export class ProductsComponent implements OnInit {
       description: '',
       image: '',
     };
-  }
-
-  deleteProduct(id: number) {
-    this.productsService.deleteProduct(id);
   }
 }
