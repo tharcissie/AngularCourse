@@ -8,17 +8,25 @@
         <h2 class="text-xl font-bold">{{ product.title }}</h2>
       </div>
       <p>{{ product.description }}</p>
-      <button
-        (click)="deleteProduct(product.id)"
-        class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded mt-5"
-      >
-        Delete
-      </button>
+      <div class="flex justify-end mt-5">
+        <button
+          (click)="updateProduct(product)"
+          class="bg-yellow-500 hover:bg-yellow-700 text-white py-2 px-4 rounded mr-2"
+        >
+          Edit
+        </button>
+        <button
+          (click)="deleteProduct(product.id)"
+          class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded"
+        >
+          Delete
+        </button>
+      </div>
     </div>
   </div>
   <div>
     <div class="bg-white p-6 rounded-lg shadow-lg">
-      <h2 class="text-xl font-bold mb-4">Add Product</h2>
+      <h2 class="text-xl font-bold mb-4">{{ isUpdating ? 'Edit Product' : 'Add Product' }}</h2>
       <form>
         <div class="mb-4">
           <label for="title" class="block text-sm font-medium text-gray-700"
@@ -84,11 +92,19 @@
         </div>
         <div class="flex justify-end">
           <button
-            (click)="addProduct()"
+            (click)="isUpdating ? editProduct() : addProduct()"
             type="submit"
             class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mr-2"
           >
-            Add
+            {{ isUpdating ? 'Update' : 'Add' }}
+          </button>
+          <button
+            *ngIf="isUpdating"
+            (click)="cancelEdit()"
+            type="button"
+            class="bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded"
+          >
+            Cancel
           </button>
         </div>
       </form>

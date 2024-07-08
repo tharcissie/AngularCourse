@@ -38,4 +38,33 @@ export class ProductsComponent implements OnInit {
   deleteProduct(id: number) {
     this.productsService.deleteProduct(id);
   }
+
+  isUpdating: boolean = false;
+
+  updateProduct(product: PRODUCT): void {
+    this.product = {...product};
+    this.isUpdating = true;
+  }
+
+  editProduct(){
+    this.productsService.editProduct(this.product.id, this.product);
+    this.clearForm();
+  }
+
+  cancelEdit(){
+    this.clearForm();
+  }
+
+  clearForm(): void{
+    this.product = {
+      id: 0,
+      title: '',
+      price: '',
+      category: '',
+      description: '',
+      image:''
+    }
+    this.isUpdating = false;
+  }
+
 }
