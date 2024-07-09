@@ -35,4 +35,9 @@ export class ProductsService {
       this.products = this.products.filter((product) => product.id !== id);
     });
   }
+
+  viewSingleProduct(id:number):PRODUCT | undefined{
+    const res = this.products.find((product)=>product.id === id);
+    return res;
+  }
 }

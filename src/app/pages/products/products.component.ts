@@ -42,6 +42,11 @@ export class ProductsComponent implements OnInit {
   }
 
   viewDetail(id:number):void{
-    this.router.navigate(['/productdetail',id])
+    let res = this.productsService.viewSingleProduct(id)
+    if(res){
+      this.router.navigate(['/productdetail', res.id])
+    }else{
+      console.error('Product not found');
+    }
   }
 }
