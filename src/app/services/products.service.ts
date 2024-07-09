@@ -1,38 +1,32 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { PRODUCT } from '../model/product';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductsService {
-  private products: PRODUCT[] = [];
-
   private URL = 'https://fakestoreapi.com';
 
   constructor(private http: HttpClient) {}
 
-  fetchProducts(): void {
-    this.http.get<PRODUCT[]>(`${this.URL}/products`).subscribe((data) => {
-      this.products = data;
-    });
+  fetchProducts(): Observable<PRODUCT[]> {
+    return this.http.get<PRODUCT[]>(`${this.URL}/products`);
   }
 
-  getProducts(): PRODUCT[] {
-    return this.products;
+  addProduct(product: PRODUCT): Observable<PRODUCT> {
+    return this.http.post<PRODUCT>(`${this.URL}/products`, product);
   }
 
-  addProduct(product: PRODUCT): void {
-    this.http
-      .post<PRODUCT>(`${this.URL}/products`, product)
-      .subscribe((data) => {
-        this.products.push(data);
-      });
+  updateProduct(product: PRODUCT): Observable<PRODUCT> {
+    return this.http.put<PRODUCT>(
+      `${this.URL}/products/${product.id}`,
+      product
+    );
   }
 
-  deleteProduct(id: number): void {
-    this.http.delete<PRODUCT>(`${this.URL}/products/${id}`).subscribe(() => {
-      this.products = this.products.filter((product) => product.id !== id);
-    });
+  deleteProduct(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.URL}/products/${id}`);
   }
 }

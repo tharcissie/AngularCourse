@@ -8,18 +8,28 @@
         <h2 class="text-xl font-bold">{{ product.title }}</h2>
       </div>
       <p>{{ product.description }}</p>
-      <button
-        (click)="deleteProduct(product.id)"
-        class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded mt-5"
-      >
-        Delete
-      </button>
+      <div class="flex space-x-2">
+        <button
+          (click)="editProduct(product)"
+          class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded mt-5 font-bold"
+        >
+          Edit
+        </button>
+        <button
+          (click)="deleteProduct(product.id)"
+          class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded mt-5 font-bold"
+        >
+          Delete
+        </button>
+      </div>
     </div>
   </div>
   <div>
     <div class="bg-white p-6 rounded-lg shadow-lg">
-      <h2 class="text-xl font-bold mb-4">Add Product</h2>
-      <form>
+      <h2 class="text-xl font-bold mb-4">
+        {{ editMode ? "Edit Product" : "Add Product" }}
+      </h2>
+      <form [formGroup]="productForm" (ngSubmit)="saveProduct()">
         <div class="mb-4">
           <label for="title" class="block text-sm font-medium text-gray-700"
             >Title</label
@@ -27,10 +37,18 @@
           <input
             type="text"
             id="title"
-            name="title"
-            [(ngModel)]="product.title"
+            formControlName="title"
             class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
           />
+          <div
+            *ngIf="
+              productForm.controls['title'].invalid &&
+              productForm.controls['title'].touched
+            "
+            class="text-red-500 text-sm"
+          >
+            Title is required.
+          </div>
         </div>
         <div class="mb-4">
           <label for="price" class="block text-sm font-medium text-gray-700"
@@ -39,10 +57,18 @@
           <input
             type="number"
             id="price"
-            name="price"
-            [(ngModel)]="product.price"
+            formControlName="price"
             class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
           />
+          <div
+            *ngIf="
+              productForm.controls['price'].invalid &&
+              productForm.controls['price'].touched
+            "
+            class="text-red-500 text-sm"
+          >
+            Price is required.
+          </div>
         </div>
         <div class="mb-4">
           <label for="category" class="block text-sm font-medium text-gray-700"
@@ -51,10 +77,18 @@
           <input
             type="text"
             id="category"
-            name="category"
-            [(ngModel)]="product.category"
+            formControlName="category"
             class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
           />
+          <div
+            *ngIf="
+              productForm.controls['category'].invalid &&
+              productForm.controls['category'].touched
+            "
+            class="text-red-500 text-sm"
+          >
+            Category is required.
+          </div>
         </div>
         <div class="mb-4">
           <label
@@ -64,11 +98,19 @@
           >
           <textarea
             id="description"
-            name="description"
+            formControlName="description"
             rows="3"
-            [(ngModel)]="product.description"
             class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
           ></textarea>
+          <div
+            *ngIf="
+              productForm.controls['description'].invalid &&
+              productForm.controls['description'].touched
+            "
+            class="text-red-500 text-sm"
+          >
+            Description is required.
+          </div>
         </div>
         <div class="mb-4">
           <label for="image" class="block text-sm font-medium text-gray-700"
@@ -77,18 +119,25 @@
           <input
             type="url"
             id="image"
-            name="image"
-            [(ngModel)]="product.image"
+            formControlName="image"
             class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
           />
+          <div
+            *ngIf="
+              productForm.controls['image'].invalid &&
+              productForm.controls['image'].touched
+            "
+            class="text-red-500 text-sm"
+          >
+            Image URL is required.
+          </div>
         </div>
         <div class="flex justify-end">
           <button
-            (click)="addProduct()"
             type="submit"
             class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mr-2"
           >
-            Add
+            {{ editMode ? "Update" : "Add" }} Product
           </button>
         </div>
       </form>
