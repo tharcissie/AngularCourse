@@ -9,6 +9,12 @@
       </div>
       <p>{{ product.description }}</p>
       <button
+        (click)="editProduct(product)"
+        class="bg-teal-500 hover:bg-teal-700 text-white py-2 px-4 rounded mt-5"
+      >
+        Edit
+      </button>
+      <button
         (click)="deleteProduct(product.id)"
         class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded mt-5"
       >
@@ -18,8 +24,10 @@
   </div>
   <div>
     <div class="bg-white p-6 rounded-lg shadow-lg">
-      <h2 class="text-xl font-bold mb-4">Add Product</h2>
-      <form>
+      <h2 class="text-xl font-bold mb-4">
+        {{ isEditing ? "Edit" : "Add" }} Product
+      </h2>
+      <form (ngSubmit)="onSubmit()">
         <div class="mb-4">
           <label for="title" class="block text-sm font-medium text-gray-700"
             >Title</label
@@ -84,11 +92,10 @@
         </div>
         <div class="flex justify-end">
           <button
-            (click)="addProduct()"
             type="submit"
             class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mr-2"
           >
-            Add
+            {{ isEditing ? "Save changes" : "Add product" }}
           </button>
         </div>
       </form>
