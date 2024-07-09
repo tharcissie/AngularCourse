@@ -7,7 +7,7 @@ import { PRODUCT } from '../../model/product';
   styleUrl: './modal.component.css',
 })
 export class ModalComponent {
-  @Input() product: PRODUCT | null = null;
+  @Input() selectedProduct: PRODUCT | null = null;
   @Input() showModal: boolean = false;
 
   closeModal() {

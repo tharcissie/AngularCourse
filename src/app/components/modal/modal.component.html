@@ -4,19 +4,19 @@
 >
   <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
     <div class="flex justify-between items-center mb-4">
-      <h2 class="text-xl font-bold">{{ product?.title }}</h2>
+      <h2 class="text-xl font-bold">{{ selectedProduct?.title }}</h2>
       <button (click)="closeModal()" class="text-gray-600">&times;</button>
     </div>
     <img
-      [src]="product?.image"
-      alt="{{ product?.title }}"
+      [src]="selectedProduct?.image"
+      alt="{{ selectedProduct?.title }}"
       class="w-full mb-4"
     />
-    <p>{{ product?.description }}</p>
-    <p class="font-bold text-lg">${{ product?.price }}</p>
+    <p>{{ selectedProduct?.description }}</p>
+    <p class="font-bold text-lg">${{ selectedProduct?.price }}</p>
     <button
       (click)="closeModal()"
-      class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mt-4"
+      class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded mt-4"
     >
       Close
     </button>
