@@ -8,12 +8,23 @@
         <h2 class="text-xl font-bold">{{ product.title }}</h2>
       </div>
       <p>{{ product.description }}</p>
+
+      <div class="flex justify-end gap-3">
+        <button
+        (click)="loadProduct(product)"
+        class="bg-slate-500 text-white py-2 px-4 rounded mt-5"
+      >
+        edit
+      </button>
+
       <button
         (click)="deleteProduct(product.id)"
         class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded mt-5"
       >
         Delete
       </button>
+    </div>
+
     </div>
   </div>
   <div>
@@ -88,7 +99,7 @@
             type="submit"
             class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mr-2"
           >
-            Add
+            {{isEditing === true ? 'UPDATE': 'ADD'}}
           </button>
         </div>
       </form>
