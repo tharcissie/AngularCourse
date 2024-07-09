@@ -8,12 +8,20 @@
         <h2 class="text-xl font-bold">{{ product.title }}</h2>
       </div>
       <p>{{ product.description }}</p>
-      <button
-        (click)="deleteProduct(product.id)"
-        class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded mt-5"
-      >
-        Delete
-      </button>
+      <div class="flex justify-around gap-5">
+        <button
+          (click)="openModal(product.id)"
+          class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mt-5"
+        >
+          View
+        </button>
+        <button
+          (click)="deleteProduct(product.id)"
+          class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded mt-5"
+        >
+          Delete
+        </button>
+      </div>
     </div>
   </div>
   <div>

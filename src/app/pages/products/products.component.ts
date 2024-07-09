@@ -17,6 +17,9 @@ export class ProductsComponent implements OnInit {
     description: '',
     image: '',
   };
+  selectedProduct: PRODUCT | null = null;
+  showModal: boolean = false;
+
   constructor(private productsService: ProductsService) {}
   ngOnInit(): void {
     this.productsService.fetchProducts();
@@ -37,5 +40,12 @@ export class ProductsComponent implements OnInit {
 
   deleteProduct(id: number) {
     this.productsService.deleteProduct(id);
+  }
+
+  openModal(id: number): void {
+    this.productsService.getSingleProduct(id).subscribe((product) => {
+      this.selectedProduct = product;
+      this.showModal = true;
+    });
   }
 }

@@ -35,4 +35,8 @@ export class ProductsService {
       this.products = this.products.filter((product) => product.id !== id);
     });
   }
+
+  getSingleProduct(id: number) {
+    return this.http.get<PRODUCT>(`${this.URL}/products/${id}`);
+  }
 }
