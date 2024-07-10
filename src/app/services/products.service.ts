@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PRODUCT } from '../model/product';
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root',
@@ -38,11 +39,12 @@ export class ProductsService {
 
   editProduct(product: PRODUCT): void {
     this.http
-      .put<PRODUCT>(`${this.URL}/product/${product.id}`, product)
+      .put<PRODUCT>(`${this.URL}/products/${product.id}`, product)
       .subscribe((data) => {
         const index = this.products.findIndex((p) => p.id === data.id);
       });
   }
+
 
   getSingleProduct(id: number): PRODUCT | undefined {
     return this.products.find((product) => product.id === id);

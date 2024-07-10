@@ -38,13 +38,13 @@ export class ProductsComponent implements OnInit {
 
   editContent: boolean = false;
 
-  deleteProduct(id: number) {
-    this.productsService.deleteProduct(id);
-  }
-
   editProduct(product: PRODUCT): void {
     this.product = { ...product };
     this.editContent = true;
+  }
+
+  deleteProduct(id: number): void {
+    this.productsService.deleteProduct(id);
   }
 
   resetForm(): void {
@@ -56,5 +56,28 @@ export class ProductsComponent implements OnInit {
       description: '',
       image: '',
     };
+
+
+  }
+
+  saveEditedProduct(): void {
+    this.productsService.editProduct(this.product);
+    this.product = {
+      id: 0,
+      title: '',
+      price: '',
+      category: '',
+      description: '',
+      image: '',
+    };
+    this.editContent = false;
+  }
+
+  onSubmit(): void {
+    if (this.editContent) {
+      this.saveEditedProduct();
+    } else {
+      this.addProduct();
+    }
   }
 }

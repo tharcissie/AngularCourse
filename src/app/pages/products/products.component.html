@@ -8,24 +8,20 @@
         <h2 class="text-xl font-bold">{{ product.title }}</h2>
       </div>
       <p>{{ product.description }}</p>
-      <button
-        (click)="deleteProduct(product.id)"
-        class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded mt-5"
-      >
-        Delete
-      </button>
-      <button
-        (click)="editProduct(product)"
-        class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded mt-5 ml-10"
-      >
-        Edit
-      </button>
-      <a
-        routerLink="/products/{{ product.id }}"
-        class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded mt-5 ml-10"
-      >
-        view
-      </a>
+      <div class="flex gap-4">
+        <button
+          (click)="editProduct(product)"
+          class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded mt-5 duration-75 active:scale-90"
+        >
+          Edit
+        </button>
+        <button
+          (click)="deleteProduct(product.id)"
+          class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded mt-5 duration-75 active:scale-90"
+        >
+          Delete
+        </button>
+      </div>
     </div>
   </div>
   <div>
@@ -33,7 +29,7 @@
       <h2 class="text-xl font-bold mb-4">
         {{ editContent ? "Edit" : "Add" }} Product
       </h2>
-      <form>
+      <form (ngSubmit)="onSubmit()">
         <div class="mb-4">
           <label for="title" class="block text-sm font-medium text-gray-700"
           >Title</label
@@ -97,23 +93,14 @@
           />
         </div>
         <div class="flex justify-end">
-          {{ editContent ?
-          <button
-            (click)="addProduct()"
-            type="submit"
-            class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mr-2"
-          >
-             "Update" : "Add" }} Product
-          </button>
-:
-          <button
-            (click)="addProduct()"
-            type="submit"
-            class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mr-2"
-          >
-            {{ editContent ? "Update" : "Add" }} Product
-          </button>
-          }}
+<!--          <button-->
+<!--            type="submit"-->
+<!--            class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mr-2"-->
+<!--          >-->
+<!--            {{ editContent ? "Save changes" : "Add product" }}-->
+<!--          </button>-->
+          <button class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mr-2" type="submit">{{ editContent ? 'Save' : 'Add' }}</button>
+          <button class="bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded mr-2" type="button" (click)="resetForm()">Reset</button>
         </div>
       </form>
     </div>
